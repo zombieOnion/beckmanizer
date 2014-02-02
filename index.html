@@ -42,7 +42,7 @@
       var twhtml='<a id="tweet" class="twitter-share-button" href="http://twitter.com/share" data-counturl="http://www.cnn.com" data-url="http://beckmanizer.slasktratt.se">Tweet</a>';
       var quoteFragment = $('#q1').html() + " " + $('#q2').html();
       quoteFragment = quoteFragment.substr(0,95);
-      var tweetButton = "'" + quoteFragment + "...' #beckmanizer";
+      var tweetButton = "\"" + quoteFragment + "...\" #beckmanizer";
       $('#tweet').remove();
       $('#tweetarea').append(twhtml);
       $('#tweet').attr('data-text', tweetButton);  
@@ -84,7 +84,7 @@
           </div>
           <div class="col-lg-10">  
 
-              <div>
+              <div class="header">
               <span class="twittername">Lars Beckman</span>
               <a href="http://twitter.com/beckmansasikter"><span class="twitterhandle">@beckmansasikter</span></a>
               </div>

@@ -6,6 +6,10 @@
         height: 8ex;
       }
 
+      .header {
+        margin-top: 1ex;
+      }
+
       .intro {
         margin-bottom: 2ex;
       }
