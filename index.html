@@ -23,7 +23,7 @@
     $( document ).ready(function() {
       quote(); 
       
-      $( "#requote" ).click(function(event) {
+      $( ".requote" ).click(function(event) {
       event.preventDefault();
       quote();
       });
@@ -34,6 +34,8 @@
       getQuotepart("data/1.txt","q1");
       getQuotepart("data/2.txt","q2");
       getQuotepart("data/3.txt","q3");
+      $('#retweets-count').html(Math.floor(Math.random()*12+1));
+      $('#favorites-count').html(Math.floor(Math.random()*12+1));
     }
 
     function fixTweetButton() {
@@ -73,21 +75,43 @@
       <div class="col-lg-8" id="main">
 	     <h1>#Beckmanizer</h1>
         <div class="intro">
-        En floskelgenerator baserad på verkliga tweets från en moderat riksdagsman. Citaten kan verka riktiga men så är alltså inte fallet. Det går bra att skapa ett nytt citat genom att <a href="http://beckmanizer.slasktratt.se" id="requote">klicka här</a>. Sprid gärna detta men kom ihåg att hålla God Ton™ och <a class="italic" href="http://en.wikipedia.org/wiki/Tongue-in-cheek">Tongue in Cheek</a>
+        En floskelgenerator baserad på verkliga tweets från en moderat riksdagsman. Citaten kan verka riktiga men så är alltså inte fallet. Det går bra att skapa ett nytt citat genom att <a href="http://beckmanizer.slasktratt.se" class="requote">klicka här</a>. Sprid gärna detta men kom ihåg att hålla God Ton™ och <a class="italic" href="http://en.wikipedia.org/wiki/Tongue-in-cheek">Tongue in Cheek</a>
         </div>
 
         <div class="beckman">
-          <img class="pretty" src="data/beckman.jpg" alt="Lars Beckman (M)" width="100"/>
-          <p class="beckmanquote">
-            <span>
+          <div class="col-lg-2">
+            <img class="pretty" src="data/beckman.jpg" alt="Lars Beckman (M)" width="100"/>
+          </div>
+          <div class="col-lg-10">  
+
+              <div>
+              <span class="twittername">Lars Beckman</span>
+              <a href="http://twitter.com/beckmansasikter"><span class="twitterhandle">@beckmansasikter</span></a>
+              </div>
+              <div class="beckmanquote">
               <span id="q1"></span>
               <span id="q2"></span>
               <span id="q3"></span>
-            </span>
-          </p>
-          -- <a href="http://twitter.com/beckmansasikter">@beckmansasikter</a>
-          <span class="footer">via <a href="http://beckmanizer.slasktratt.se">#beckmanizer</a></span>
+            </div>
+
+          <div class="footer">-- via <a href="http://beckmanizer.slasktratt.se">#beckmanizer</a></div>
+          
+          <ul class="stats">
+            <li class="js-stat-count js-stat-retweets stat-count">
+              <a href="#" class="request-retweeted-popup" data-activity-popup-title="Retweeted 7 time">
+              <strong id="retweets-count">7</strong> RETWEETS
+            </a>
+            </li>
+            <li class="js-stat-count js-stat-favorites stat-count">
+            <a href="#" class="request-favorited-popup" data-activity-popup-title="Favorited 5 times">
+              <strong id="favorites-count">5</strong> FAVORITES
+            </a>
+            </li>
+          </ul>
         </div>
+        </div>
+
+        <p><a href="http://beckmanizer.slasktratt.se" class="btn btn-primary btn-lg requote">Ny floskel</a></p> 
 
         <div id="tweetarea">
         <a id="tweet" href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="http://beckmanizer.slasktratt.se" data-counturl="http://www.cnn.com" data-text="">Tweet</a>
