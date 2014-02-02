@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:type" content="website">
-    <meta property="og:description" content="#Beckmanizer - floskelgenerator">
+    <meta property="og:description" content="#Beckmanizer - floskelgenerator med touch av #högerspinn">
     <meta property="og:url" content="http://beckmanizer.slasktratt.se">
     <meta property="og:image" content="http://beckmanizer.slasktratt.se/data/beckman.jpg">
     <meta name="description" content="Hela Gävleborgs läns floskelgenerator">
@@ -18,37 +18,83 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="gh-fork-ribbon.css">
     <script lang="javascript">
+
+ 
+
     $( document ).ready(function() {
       quote(); 
-      
-      $( "#requote" ).click(function(event) {
-      event.preventDefault();
-      quote();
+      $( ".requote" ).click(function(event) {
+        event.preventDefault();
+        quote();
       });
-
     });
 
     function quote() {
-      getQuotepart("data/1.txt","q1");
-      getQuotepart("data/2.txt","q2");
-      getQuotepart("data/3.txt","q3");
+		// One tweet in 30...
+		if(Math.floor(Math.random() * 30) == 25 ) {	
+			getSingleQuote();
+		}
+		else {
+			getQuotes();
+		}
+      
+      $('#retweets-count').html(Math.floor((Math.random()*12)+3));
+      $('#favorites-count').html(Math.floor((Math.random()*12)+3));
+    }
+	
+
+    function fixTweetLink() {
+      var quoteFragment = $('#quote-1').html() + " " + $('#quote-2').html();
+      quoteFragment = quoteFragment.substr(0,95);
+      var re = /\#/;
+      quoteFragment = quoteFragment.replace(re, "");
+      var tweetURL="https://twitter.com/intent/tweet?hashtags=beckmanizer\&url=http://beckmanizer.slasktratt.se\&text=" + "\"" + quoteFragment + "...\"";
+      $('#tweetlink').attr('href',''); 
+      $('#tweetlink').attr('href',tweetURL); 
     }
 
-    function fixTweetButton() {    
-      var tweetButton = "'" + $('#q1').html() + "...' #beckmanizer";
-      console.log(tweetButton);
-      $('#tweet').attr('data-text', tweetButton);      
+    <!--
+    function fixFBLink() {
+      var quote = $('#quote-1').html() + " " + $('#quote-2').html() + " " +$('#quote-3').html();
+      var url = "http://www.facebook.com/sharer.php?s=100\&p[url]=http://beckmanizer.slasktratt.se\&p[images][0]=http://beckmanizer.slasktratt.se/data/beckman.jpg\&p[title]=Beckmanizer\&p[summary]=SUMMARY";
+      var re = /SUMMARY/;
+      url = url.replace(re, quote);
+      
+      $('#fblink').attr('href',url); 
     }
+    -->
+	
+	function getSingleQuote() {
+		$.get( 'data/4.txt', function( data4 ) {
+			var lines = data4.split("\n");
+			var line = lines[Math.floor(Math.random() * lines.length)];
+			var tweet = line.split(":::")[0];
+			var url = line.split(":::")[1];
+			var orgLink = '<a href=' + url + '>(Länk till orginal-tweet!)</a>'
+          	$('#quote-1').html(tweet);
+		  	$('#quote-2').html(orgLink);
+			$('#quote-3').empty();
+			fixTweetLink();
+		});
+	}
 
-    function getQuotepart(url, id) {
-        $.get( url, function( data ) {
-        var lines = data.split("\n");
-        $('#' + id).html( lines[Math.floor(Math.random() * lines.length)] );
-        if(id == 'q1') {
-          fixTweetButton();
-        }
+    function getQuotes() {
+      $.get( 'data/1.txt', function( data1 ) {
+        var lines = data1.split("\n");
+        $('#quote-1').html( lines[Math.floor(Math.random() * lines.length)] );
+        $.get( 'data/2.txt', function( data2 ) {
+          var lines = data2.split("\n");
+          $ ('#quote-2').html( lines[Math.floor(Math.random() * lines.length)] );
+          $.get( 'data/3.txt', function( data3 ) {
+            var lines = data3.split("\n");
+            $ ('#quote-3').html( lines[Math.floor(Math.random() * lines.length)] );
+            fixTweetLink();
+          });
+        });
       });
+      
     }
 
     </script>
@@ -57,31 +103,58 @@
 
   </head>
   <body>
+    <div class="github-fork-ribbon-wrapper right">
+        <div class="github-fork-ribbon">
+            <a href="https://github.com/j0hnk/beckmanizer">Fork me on GitHub</a>
+        </div>
+    </div>
     <div class="container">
       <div class="col-lg-2"></div>
       <div class="col-lg-8" id="main">
 	     <h1>#Beckmanizer</h1>
         <div class="intro">
-        En floskelgenerator baserad på verkliga tweets från en moderat riksdagsman. Citaten kan verka riktiga men så är alltså inte fallet. Det går bra att skapa ett nytt citat genom att <a href="http://beckmanizer.slasktratt.se" id="requote">klicka här</a>. Sprid gärna detta men kom ihåg att hålla God Ton™ och <a class="italic" href="http://en.wikipedia.org/wiki/Tongue-in-cheek">Tongue in Cheek</a>
+        En floskelgenerator baserad på verkliga tweets från en moderat riksdagsman. Citaten kan verka riktiga men så är alltså inte fallet! Dock så blandas det då och då in riktiga tweets i samlingen. Dessa tweets åtföljs då av en länk till orginalet. Sprid gärna detta men kom ihåg att hålla God Ton™ och <a class="italic" href="http://en.wikipedia.org/wiki/Tongue-in-cheek">Tongue in Cheek</a>. Upphovsman till detta är <a href="http://twitter.com/j0hnk">@j0hnk</a> som har en webbsida på <a href="http://www.slasktratt.se">slasktratt.se</a>.
         </div>
 
         <div class="beckman">
-          <img class="pretty" src="data/beckman.jpg" alt="Lars Beckman (M)" width="100"/>
-          <p class="beckmanquote">
-            <span>
-              <span id="q1"></span>
-              <span id="q2"></span>
-              <span id="q3"></span>
-            </span>
-          </p>
-          -- <a href="http://twitter.com/beckmansasikter">@beckmansasikter</a>
-          <span class="footer">via <a href="http://beckmanizer.slasktratt.se">#beckmanizer</a></span>
+          <div class="col-lg-2">
+            <img class="pretty" src="data/beckman.jpg" alt="Lars Beckman (M)" width="100"/>
+          </div>
+          <div class="col-lg-10">  
+
+              <div class="header">
+              <span class="twittername">Lars Beckman</span>
+              <a href="http://twitter.com/beckmansasikter"><span class="twitterhandle">@beckmansasikter</span></a>
+              </div>
+              <div class="beckmanquote">
+              <span id="quote-1"></span>
+              <span id="quote-2"></span>
+              <span id="quote-3"></span>
+            </div>
+
+          <div class="footer">-- via <a href="http://beckmanizer.slasktratt.se">#beckmanizer</a></div>
+          
+          <ul class="stats">
+            <li class="js-stat-count js-stat-retweets stat-count">
+              <a href="#" class="request-retweeted-popup" data-activity-popup-title="Retweeted 7 time">
+              <strong id="retweets-count">7</strong> RETWEETS
+            </a>
+            </li>
+            <li class="js-stat-count js-stat-favorites stat-count">
+            <a href="#" class="request-favorited-popup" data-activity-popup-title="Favorited 5 times">
+              <strong id="favorites-count">5</strong> FAVORITES
+            </a>
+            </li>
+          </ul>
+        </div>
         </div>
 
+        <p>
+          <a href="http://beckmanizer.slasktratt.se" class="btn btn-success btn-lg requote">Ny floskel</a>
+          <a id="tweetlink" href="https://twitter.com/intent/tweet?hashtags=#beckmanizer&amp;url=http://beckmanizer.slasktratt.se" class="btn btn-primary btn-lg tweet" target="_blank">Tweeta floskel</a>  
+          <!--<a id="fblink" href="https://twitter.com/intent/tweet?hashtags=#beckmanizer&amp;url=http://beckmanizer.slasktratt.se" class="btn btn-primary btn-lg tweet" target="_blank">Dela på Facebook</a>  -->        
+        </p> 
 
-        <a id="tweet" href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="http://beckmanizer.slasktratt.se" data-counturl="http://www.cnn.com" data-text="">Tweet</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
- 
       
       </div>
       <div class="col-lg-2"></div>

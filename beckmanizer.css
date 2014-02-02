@@ -1,14 +1,22 @@
       .beckmanquote {
-        font-size: 20px;
+        font-size: 16px;
         font-style: italic;
         color: #aaa;
-        padding-right: 4ex;
-        padding-left: 12ex;
         padding-top: 1ex;
+        min-height: 8ex;
+      }
+
+      .header {
+        margin-top: 1ex;
       }
 
       .intro {
         margin-bottom: 2ex;
+      }
+
+      .icon {
+        max-width: 90px;
+        max-height: 90px;
       }
 
       .beckman {
@@ -20,14 +28,47 @@
       }
 
       .beckman img {
-        float: left;  
         border: 1px solid;
-        margin-right: 2ex;
+      }
+
+      .twittername {
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .twitterhandle {
+        font-size: 16px;
+        color: #aaa;
+        padding-left: 1ex;
       }
 
       .footer {
+        padding-top: 1ex;
         text-align: right;
         font-style: italic;
+        color: #aaa;
+      }
+
+
+      .stats a {
+        color: #aaa;
+      }
+      .stats a strong {
+        display: block;
+        color: black;
+      }
+
+      ul.stats {
+        border-top: 1px solid rgba(0,0,0,0.1);
+      }
+      li.stat-count {
+        list-style: none;
+        float: left;
+        margin-right: 1ex;
+        padding-right: 1ex;
+        padding-bottom: 1ex;
+        padding-top: 1ex;
+        border-right: 1px solid rgba(0,0,0,0.1);
       }
 
       img.pretty{
@@ -39,6 +80,6 @@
         -khtml-border-radius: 8px;  
         border-radius: 8px;
         border:solid white 3px;
-        float:left;
-        margin:8px;
+        margin-top: 2ex;
+        margin-bottom: 2ex;
       }
