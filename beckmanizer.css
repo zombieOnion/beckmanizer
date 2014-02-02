@@ -14,6 +14,11 @@
         margin-bottom: 2ex;
       }
 
+      .icon {
+        max-width: 90px;
+        max-height: 90px;
+      }
+
       .beckman {
         clear: both;
         overflow: auto;

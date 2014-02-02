@@ -20,9 +20,17 @@
 
     <link rel="stylesheet" href="gh-fork-ribbon.css">
     <script lang="javascript">
+
+ 
+
     $( document ).ready(function() {
+
+      $.ajaxSetup({
+        async: false
+      });
+
       quote(); 
-      
+
       $( ".requote" ).click(function(event) {
       event.preventDefault();
       quote();
@@ -31,31 +39,40 @@
     });
 
     function quote() {
-      getQuotepart("data/1.txt","q1");
-      getQuotepart("data/2.txt","q2");
-      getQuotepart("data/3.txt","q3");
+      getQuotepart("1");
       $('#retweets-count').html(Math.floor((Math.random()*12)+3));
       $('#favorites-count').html(Math.floor((Math.random()*12)+3));
     }
 
-    function fixTweetButton() {
-      var twhtml='<a id="tweet" class="twitter-share-button" href="http://twitter.com/share" data-counturl="http://www.cnn.com" data-url="http://beckmanizer.slasktratt.se">Tweet</a>';
-      var quoteFragment = $('#q1').html() + " " + $('#q2').html();
+    function fixTweetLink() {
+      var quoteFragment = $('#quote-1').html() + " " + $('#quote-2').html();
       quoteFragment = quoteFragment.substr(0,95);
-      var tweetButton = "\"" + quoteFragment + "...\" #beckmanizer";
-      $('#tweet').remove();
-      $('#tweetarea').append(twhtml);
-      $('#tweet').attr('data-text', tweetButton);  
-      twttr.widgets.load();  
+      var re = /\#/;
+      quoteFragment = quoteFragment.replace(re, "");
+      var tweetURL="https://twitter.com/intent/tweet?hashtags=beckmanizer\&url=http://beckmanizer.slasktratt.se\&text=" + "\"" + quoteFragment + "...\"";
+      $('#tweetlink').attr('href',tweetURL); 
     }
 
-    function getQuotepart(url, id) {
-        $.get( url, function( data ) {
+    <!--
+    function fixFBLink() {
+      var quote = $('#quote-1').html() + " " + $('#quote-2').html() + " " +$('#quote-3').html();
+      var url = "http://www.facebook.com/sharer.php?s=100\&p[url]=http://beckmanizer.slasktratt.se\&p[images][0]=http://beckmanizer.slasktratt.se/data/beckman.jpg\&p[title]=Beckmanizer\&p[summary]=SUMMARY";
+      var re = /SUMMARY/;
+      url = url.replace(re, quote);
+      
+      $('#fblink').attr('href',url); 
+    }
+    -->
+
+    function getQuotepart(nr) {
+        $.get( 'data/' + nr + '.txt', function( data ) {
         var lines = data.split("\n");
-        $('#' + id).html( lines[Math.floor(Math.random() * lines.length)] );
-        if(id == 'q1') {
-          fixTweetButton();
+        $('#quote-' + nr).html( lines[Math.floor(Math.random() * lines.length)] );
+        if(parseInt(nr) < 3) {
+          getQuotepart(parseInt(nr) + 1);    
         }
+        fixTweetLink();
+        //fixFBLink();
       });
     }
 
@@ -89,9 +106,9 @@
               <a href="http://twitter.com/beckmansasikter"><span class="twitterhandle">@beckmansasikter</span></a>
               </div>
               <div class="beckmanquote">
-              <span id="q1"></span>
-              <span id="q2"></span>
-              <span id="q3"></span>
+              <span id="quote-1"></span>
+              <span id="quote-2"></span>
+              <span id="quote-3"></span>
             </div>
 
           <div class="footer">-- via <a href="http://beckmanizer.slasktratt.se">#beckmanizer</a></div>
@@ -111,13 +128,12 @@
         </div>
         </div>
 
-        <p><a href="http://beckmanizer.slasktratt.se" class="btn btn-primary btn-lg requote">Ny floskel</a></p> 
+        <p>
+          <a href="http://beckmanizer.slasktratt.se" class="btn btn-success btn-lg requote">Ny floskel</a>
+          <a id="tweetlink" href="https://twitter.com/intent/tweet?hashtags=#beckmanizer&amp;url=http://beckmanizer.slasktratt.se" class="btn btn-primary btn-lg tweet" target="_blank">Tweeta floskel</a>  
+          <!--<a id="fblink" href="https://twitter.com/intent/tweet?hashtags=#beckmanizer&amp;url=http://beckmanizer.slasktratt.se" class="btn btn-primary btn-lg tweet" target="_blank">Dela på Facebook</a>  -->        
+        </p> 
 
-        <div id="tweetarea">
-        <a id="tweet" href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="http://beckmanizer.slasktratt.se" data-counturl="http://www.cnn.com" data-text="">Tweet</a>
-        
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-        </div>
       
       </div>
       <div class="col-lg-2"></div>
