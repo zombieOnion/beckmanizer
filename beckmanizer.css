@@ -1,0 +1,44 @@
+      .beckmanquote {
+        font-size: 20px;
+        font-style: italic;
+        color: #aaa;
+        padding-right: 4ex;
+        padding-left: 12ex;
+        padding-top: 1ex;
+      }
+
+      .intro {
+        margin-bottom: 2ex;
+      }
+
+      .beckman {
+        clear: both;
+        overflow: auto;
+        border: 2px solid #aaa;
+        border-radius: 10px;
+        margin-bottom: 3ex;
+      }
+
+      .beckman img {
+        float: left;  
+        border: 1px solid;
+        margin-right: 2ex;
+      }
+
+      .footer {
+        text-align: right;
+        font-style: italic;
+      }
+
+      img.pretty{
+        -webkit-box-shadow: 0px 0px 10px 0px #4d4d4d;
+        -moz-box-shadow: 0px 0px 10px 0px #4d4d4d;
+        box-shadow: 0px 0px 10px 0px #4d4d4d;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -khtml-border-radius: 8px;  
+        border-radius: 8px;
+        border:solid white 3px;
+        float:left;
+        margin:8px;
+      }

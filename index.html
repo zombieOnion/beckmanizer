@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="#Beckmanizer - floskelgenerator">
+    <meta property="og:url" content="http://beckmanizer.slasktratt.se">
+    <meta property="og:image" content="http://beckmanizer.slasktratt.se/data/beckman.jpg">
+    <meta name="description" content="Hela Gävleborgs läns floskelgenerator">
+    <meta name="keywords" content="#högerspinn,#svpol">
+    <meta name="author" content="john@slasktratt.se">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <title>#Beckmanizer</title>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="beckmanizer.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+    <script lang="javascript">
+    $( document ).ready(function() {
+      quote(); 
+      
+      $( "#requote" ).click(function(event) {
+      event.preventDefault();
+      quote();
+      });
+
+    });
+
+    function quote() {
+      getQuotepart("data/1.txt","q1");
+      getQuotepart("data/2.txt","q2");
+      getQuotepart("data/3.txt","q3");
+    }
+
+    function fixTweetButton() {    
+      var tweetButton = "'" + $('#q1').html() + "...' #beckmanizer";
+      console.log(tweetButton);
+      $('#tweet').attr('data-text', tweetButton);      
+    }
+
+    function getQuotepart(url, id) {
+        $.get( url, function( data ) {
+        var lines = data.split("\n");
+        $('#' + id).html( lines[Math.floor(Math.random() * lines.length)] );
+        if(id == 'q1') {
+          fixTweetButton();
+        }
+      });
+    }
+
+    </script>
+
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8" id="main">
+	     <h1>#Beckmanizer</h1>
+        <div class="intro">
+        En floskelgenerator baserad på verkliga tweets från en moderat riksdagsman. Citaten kan verka riktiga men så är alltså inte fallet. Det går bra att skapa ett nytt citat genom att <a href="http://beckmanizer.slasktratt.se" id="requote">klicka här</a>. Sprid gärna detta men kom ihåg att hålla God Ton™ och <a class="italic" href="http://en.wikipedia.org/wiki/Tongue-in-cheek">Tongue in Cheek</a>
+        </div>
+
+        <div class="beckman">
+          <img class="pretty" src="data/beckman.jpg" alt="Lars Beckman (M)" width="100"/>
+          <p class="beckmanquote">
+            <span>
+              <span id="q1"></span>
+              <span id="q2"></span>
+              <span id="q3"></span>
+            </span>
+          </p>
+          -- <a href="http://twitter.com/beckmansasikter">@beckmansasikter</a>
+          <span class="footer">via <a href="http://beckmanizer.slasktratt.se">#beckmanizer</a></span>
+        </div>
+
+
+        <a id="tweet" href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="http://beckmanizer.slasktratt.se" data-counturl="http://www.cnn.com" data-text="">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ 
+      
+      </div>
+      <div class="col-lg-2"></div>
+    </div>
+  </body>
+</html>
