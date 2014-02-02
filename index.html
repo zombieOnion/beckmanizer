@@ -18,6 +18,7 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="gh-fork-ribbon.css">
     <script lang="javascript">
     $( document ).ready(function() {
       quote(); 
@@ -35,10 +36,15 @@
       getQuotepart("data/3.txt","q3");
     }
 
-    function fixTweetButton() {    
-      var tweetButton = "'" + $('#q1').html() + "...' #beckmanizer";
-      console.log(tweetButton);
-      $('#tweet').attr('data-text', tweetButton);      
+    function fixTweetButton() {
+      var twhtml='<a id="tweet" class="twitter-share-button" href="http://twitter.com/share" data-url="http://beckmanizer.slasktratt.se">Tweet</a>';
+      var quoteFragment = $('#q1').html() + " " + $('#q2').html();
+      quoteFragment = quoteFragment.substr(0,95);
+      var tweetButton = "'" + quoteFragment + "...' #beckmanizer";
+      $('#tweet').remove();
+      $('#tweetarea').append(twhtml);
+      $('#tweet').attr('data-text', tweetButton);  
+      twttr.widgets.load();  
     }
 
     function getQuotepart(url, id) {
@@ -57,6 +63,11 @@
 
   </head>
   <body>
+    <div class="github-fork-ribbon-wrapper right">
+        <div class="github-fork-ribbon">
+            <a href="https://github.com/j0hnk/beckmanizer">Fork me on GitHub</a>
+        </div>
+    </div>
     <div class="container">
       <div class="col-lg-2"></div>
       <div class="col-lg-8" id="main">
@@ -78,10 +89,11 @@
           <span class="footer">via <a href="http://beckmanizer.slasktratt.se">#beckmanizer</a></span>
         </div>
 
-
+        <div id="tweetarea">
         <a id="tweet" href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="http://beckmanizer.slasktratt.se" data-counturl="http://www.cnn.com" data-text="">Tweet</a>
+        
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
- 
+        </div>
       
       </div>
       <div class="col-lg-2"></div>
