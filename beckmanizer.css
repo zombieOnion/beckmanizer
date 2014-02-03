@@ -3,7 +3,7 @@
         font-style: italic;
         color: #aaa;
         padding-top: 1ex;
-        height: 8ex;
+        min-height: 8ex;
       }
 
       .header {
