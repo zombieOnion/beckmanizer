@@ -24,22 +24,15 @@
  
 
     $( document ).ready(function() {
-
-      $.ajaxSetup({
-        async: false
-      });
-
       quote(); 
-
       $( ".requote" ).click(function(event) {
-      event.preventDefault();
-      quote();
+        event.preventDefault();
+        quote();
       });
-
     });
 
     function quote() {
-      getQuotepart("1");
+      getQuotes();
       $('#retweets-count').html(Math.floor((Math.random()*12)+3));
       $('#favorites-count').html(Math.floor((Math.random()*12)+3));
     }
@@ -64,15 +57,18 @@
     }
     -->
 
-    function getQuotepart(nr) {
-        $.get( 'data/' + nr + '.txt', function( data ) {
-        var lines = data.split("\n");
-        $('#quote-' + nr).html( lines[Math.floor(Math.random() * lines.length)] );
-        if(parseInt(nr) < 3) {
-          getQuotepart(parseInt(nr) + 1);    
-        }
-        fixTweetLink();
-        //fixFBLink();
+    function getQuotes() {
+      $.get( 'data/1.txt', function( data1 ) {
+        var lines = data1.split("\n");
+        $('#quote-1').html( lines[Math.floor(Math.random() * lines.length)] );
+        $.get( 'data/2.txt', function( data2 ) {
+          var lines = data2.split("\n");
+          $ ('#quote-2').html( lines[Math.floor(Math.random() * lines.length)] );
+          $.get( 'data/3.txt', function( data3 ) {
+            var lines = data3.split("\n");
+            $ ('#quote-3').html( lines[Math.floor(Math.random() * lines.length)] );
+          });
+        });
       });
     }
 
