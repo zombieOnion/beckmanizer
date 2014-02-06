@@ -64,8 +64,8 @@
       li.stat-count {
         list-style: none;
         float: left;
-        margin-right: 2ex;
-        padding-right: 2ex;
+        margin-right: 1ex;
+        padding-right: 1ex;
         padding-bottom: 1ex;
         padding-top: 1ex;
         border-right: 1px solid rgba(0,0,0,0.1);
