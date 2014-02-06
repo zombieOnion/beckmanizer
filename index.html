@@ -43,6 +43,7 @@
       var re = /\#/;
       quoteFragment = quoteFragment.replace(re, "");
       var tweetURL="https://twitter.com/intent/tweet?hashtags=beckmanizer\&url=http://beckmanizer.slasktratt.se\&text=" + "\"" + quoteFragment + "...\"";
+      $('#tweetlink').attr('href',''); 
       $('#tweetlink').attr('href',tweetURL); 
     }
 
@@ -67,9 +68,11 @@
           $.get( 'data/3.txt', function( data3 ) {
             var lines = data3.split("\n");
             $ ('#quote-3').html( lines[Math.floor(Math.random() * lines.length)] );
+            fixTweetLink();
           });
         });
       });
+      
     }
 
     </script>
