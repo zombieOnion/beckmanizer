@@ -32,10 +32,18 @@
     });
 
     function quote() {
-      getQuotes();
+		// One tweet in 30...
+		if(Math.floor(Math.random() * 30) == 25 ) {	
+			getSingleQuote();
+		}
+		else {
+			getQuotes();
+		}
+      
       $('#retweets-count').html(Math.floor((Math.random()*12)+3));
       $('#favorites-count').html(Math.floor((Math.random()*12)+3));
     }
+	
 
     function fixTweetLink() {
       var quoteFragment = $('#quote-1').html() + " " + $('#quote-2').html();
@@ -57,6 +65,20 @@
       $('#fblink').attr('href',url); 
     }
     -->
+	
+	function getSingleQuote() {
+		$.get( 'data/4.txt', function( data4 ) {
+			var lines = data4.split("\n");
+			var line = lines[Math.floor(Math.random() * lines.length)];
+			var tweet = line.split(":::")[0];
+			var url = line.split(":::")[1];
+			var orgLink = '<a href=' + url + '>(Länk till orginal-tweet!)</a>'
+          	$('#quote-1').html(tweet);
+		  	$('#quote-2').html(orgLink);
+			$('#quote-3').empty();
+			fixTweetLink();
+		});
+	}
 
     function getQuotes() {
       $.get( 'data/1.txt', function( data1 ) {
@@ -91,7 +113,7 @@
       <div class="col-lg-8" id="main">
 	     <h1>#Beckmanizer</h1>
         <div class="intro">
-        En floskelgenerator baserad på verkliga tweets från en moderat riksdagsman. Citaten kan verka riktiga men så är alltså inte fallet. Sprid gärna detta men kom ihåg att hålla God Ton™ och <a class="italic" href="http://en.wikipedia.org/wiki/Tongue-in-cheek">Tongue in Cheek</a>. Upphovsman till detta är <a href="http://twitter.com/j0hnk">@j0hnk</a> som har en webbsida på <a href="http://www.slasktratt.se">slasktratt.se</a>.
+        En floskelgenerator baserad på verkliga tweets från en moderat riksdagsman. Citaten kan verka riktiga men så är alltså inte fallet! Dock så blandas det då och då in riktiga tweets i samlingen. Dessa tweets åtföljs då av en länk till orginalet. Sprid gärna detta men kom ihåg att hålla God Ton™ och <a class="italic" href="http://en.wikipedia.org/wiki/Tongue-in-cheek">Tongue in Cheek</a>. Upphovsman till detta är <a href="http://twitter.com/j0hnk">@j0hnk</a> som har en webbsida på <a href="http://www.slasktratt.se">slasktratt.se</a>.
         </div>
 
         <div class="beckman">
